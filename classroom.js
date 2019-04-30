@@ -37,3 +37,30 @@ function loadPost() {
     })
 
 }
+
+//create post
+const createPostForm = document.querySelector("#createPostForm");
+createPostForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    var today = new Date();
+    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date + ' ' + time;
+    const postTitle = createPostForm['inputPostTitle'].value;
+    const postDate = dateTime;
+    const postText = createPostForm['inputPostText'].value;
+    var classId = localStorage.getItem("classRoomId");
+    database.ref('Classes/' + classId + '/Posts');
+    var newPostKey = database.ref().child('Classes/' + classId + '/Posts').push().key;
+    database.ref('Classes/' + classId + '/Posts/' + newPostKey).set({
+        Title: postTitle,
+        Time: postDate,
+        Text: postText
+    }).then(() => {
+        $('#modalCreatePost').modal('hide');
+        createPostForm.reset();
+    }).catch(err => {
+        console.log(err.message);
+    });
+
+})
