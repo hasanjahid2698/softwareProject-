@@ -1,0 +1,100 @@
+.bg{
+    background-color: rgb(50, 101, 112);
+}
+.text-white{
+    color: white;
+    size: 16px;
+}
+
+.text-black{
+    color: black;
+    size: 16px;
+}
+
+.gap{
+  margin: 15px;
+}
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.horizontal-center {
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.form-container{
+    padding: 40px 45px;
+    -webkit-box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+    box-shadow: -1px 4px 26px 11px rgba(0,0,0,0.75);
+}
+.tab-pane {
+    padding:0px;
+}
+.display-none{
+  display: none;
+}
+.display-block{
+  display: block;
+}
+.nav-tabs{
+  background-color:rgb(50, 101, 112);
+  color:#fff;
+}
+.tab-content{
+    background-color:rgb(50, 101, 112);
+    color:#fff;
+    padding:5px
+}
+.nav-tabs > li > a{
+  background-color: rgb(27, 69, 80);
+  color:#fff;
+}
+.nav-tabs > li > a:hover{
+  background-color: rgb(255, 255, 255) !important;
+    border-radius: 1;
+    color:rgb(0, 0, 0);
+}
+
+.jumbotron {
+    padding-top: 10px; 
+    padding-bottom: 10px;
+    
+}
+
+.modal-header{ 
+   background-color: rgb(20, 142, 158) !important; 
+}
+
+#custom-button {
+  padding: 10px;
+  color: white;
+  background-color: #009578;
+  border: 1px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#custom-button:hover {
+  background-color: #00b28f;
+}
+
+#custom-text {
+  margin-left: 10px;
+  font-family: sans-serif;
+  color: #aaa;
+}
