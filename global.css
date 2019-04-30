@@ -100,12 +100,6 @@ box-shadow: 10px 15px 47px -4px rgba(0,0,0,1);
     color:rgb(0, 0, 0);
 }
 
-.jumbotron {
-    padding-top: 10px; 
-    padding-bottom: 10px;
-    
-}
-
 .modal-header{ 
    background-color: rgb(20, 142, 158) !important; 
 }
