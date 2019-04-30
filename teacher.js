@@ -1,4 +1,59 @@
+window.onload = function () {
+    loadClass();
+};
 
+function loadClass() {
+    const queryClass = database.ref('Classes');
+    $('#classCardDiv').empty();
+    queryClass.once("value").then(function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            var para = document.createElement("div");
+            const classTitle = childSnapshot.child('Title').val();
+            const classTeacherId = childSnapshot.child('Teacher').val();
+            const classYear = childSnapshot.child('Year').val();
+            var classYearText, classSemesterText;
+            const classDate = childSnapshot.child('Date').val();
+            const classSemester = childSnapshot.child('Semester').val();
+
+            if (classYear == '1') {
+                classYearText = 'First Year ';
+            } else if (classYear == '2') {
+                classYearText = 'Second Year ';
+            } else if (classYear == '3') {
+                classYearText = 'Third Year ';
+            } else if (classYear == '4') {
+                classYearText = 'Fourth Year ';
+            } else if (classYear == '5') {
+                classYearText = 'Masters ';
+            }
+            if (classSemester == '1') {
+                classSemesterText = 'First Semester ';
+            } else if (classSemester == '2') {
+                classSemesterText = 'Second Semester ';
+            }
+
+            if (auth.currentUser.uid == classTeacherId) {
+
+                const card = `
+        <div class="card-container-header">
+          <h4><b>${classTitle}</b></h4>
+          <h5></h5><br>
+          <p class="hr"></p>
+        </div>
+
+        <div class="card-container-footer">
+          <h5>${classYearText} ${classSemesterText}</h5>
+          <h5>${classDate}</h5>
+        </div>
+        `;
+                para.innerHTML = card;
+                para.className = "card-container";
+                document.getElementById('classCardDiv').appendChild(para);
+            }
+        });
+    })
+
+}
 
 //add information of new class
 const createClassForm = document.querySelector("#createClassForm");
@@ -11,6 +66,7 @@ createClassForm.addEventListener('submit', (e) => {
     const date = createClassForm['datepicker'].value;
     const classYear = selYear.options[selYear.selectedIndex].value;
     const classSemester = selSemester.options[selSemester.selectedIndex].value;
+
     var newClassKey = database.ref().child('Classes').push().key;
     database.ref('Classes/' + newClassKey).set({
         Title: classTitle,
@@ -31,6 +87,7 @@ createClassForm.addEventListener('submit', (e) => {
         })
         $('#modalCreateClass').modal('hide');
         createClassForm.reset();
+        loadClass();
     }).catch(err => {
         console.log(err.message);
     });
@@ -67,3 +124,11 @@ $("#datepicker").datepicker({
 }).on('changeDate', function (ev) {
     $('#datepicker').datepicker('hide');
 });
+
+function signOut() {
+    auth.signOut().then(() => {
+        console.log("user log out");
+        location.href = 'index.html';
+    })
+}
+
