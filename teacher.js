@@ -12,6 +12,7 @@ function loadClass() {
             const classTeacherId = childSnapshot.child('Teacher').val();
             const classYear = childSnapshot.child('Year').val();
             var classYearText, classSemesterText;
+            var childKey = childSnapshot.key;
             const classDate = childSnapshot.child('Date').val();
             const classSemester = childSnapshot.child('Semester').val();
 
@@ -36,7 +37,7 @@ function loadClass() {
 
                 const card = `
         <div class="card-container-header">
-          <h4><b>${classTitle}</b></h4>
+          <h4><b><p ">${classTitle}</p></b></h4>
           <h5></h5><br>
           <p class="hr"></p>
         </div>
@@ -47,10 +48,18 @@ function loadClass() {
         </div>
         `;
                 para.innerHTML = card;
-                para.className = "card-container";
+                para.className = "cardDiv card-container";
+                para.setAttribute("id", childKey);
                 document.getElementById('classCardDiv').appendChild(para);
             }
         });
+    }).then(() => {
+        var classname = document.getElementsByClassName("cardDiv");
+        console.log(classname.length);
+        for (var i = 0; i < classname.length; i++) {
+            console.log(i);
+            classname[i].addEventListener('click', loadClassroom, false);
+        }
     })
 
 }
@@ -131,4 +140,12 @@ function signOut() {
         location.href = 'index.html';
     })
 }
+
+function loadClassroom() {
+    var id = this.id
+    localStorage.setItem("classRoomId", id);
+    console.log(id);
+    location.href = 'classroom.html';
+}
+
 
