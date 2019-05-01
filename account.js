@@ -71,11 +71,11 @@ const signUpFormStudent = document.querySelector('#studentForm');
 if (signUpFormStudent) {
     signUpFormStudent.addEventListener('submit', e => {
         e.preventDefault();
-
+        console.log("step 1.");
         //get User information
         const name = signUpFormStudent['inputName'].value;
-        const selYear = document.getElementById("yearList");
-        const selSemester = document.getElementById("semesterList");
+        const selYear = document.getElementById("yearList").value;
+        const selSemester = document.getElementById("semesterList").value;
         const email = signUpFormStudent['inputEmail'].value;
         const password = signUpFormStudent['inputPassword'].value;
         const confirmPassword = signUpFormStudent['inputConfirmPassword'].value;
@@ -83,19 +83,25 @@ if (signUpFormStudent) {
         if (password == confirmPassword) {
             auth.createUserWithEmailAndPassword(email, password).then(cred => {
                 console.log(cred);
+                console.log("step 2.");
                 signUpFormStudent.reset();
+                console.log("step 3.");
                 database.ref('Users/' + cred.user.uid).set({
                     UserType: "Student",
                 });
+                console.log("step 4.");
                 database.ref('Students/' + cred.user.uid).set({
                     Name: name,
                     Email: email,
-                    Year: selYear.options[selYear.selectedIndex].value,
-                    Semester: selSemester.options[selSemester.selectedIndex].value,
+                    Year: selYear,
+                    Semester: selSemester,
 
                 }).then(() => {
-                    console.log(selYear.options[selYear.selectedIndex].value)
-                    location.href = 'index.html'
+                	console.log("step 5.");
+                    console.log("Account info : "+selYear);
+                     console.log("Account info : "+selSemester);
+                    console.log("step 6.");
+                     location.href = 'index.html';
                 })
             })
         } else {
@@ -112,7 +118,7 @@ if (signUpFormStudent) {
 //sign In form
 const signInForm = document.querySelector('#signIn-form');
 
-signInForm.addEventListener('submit', e => {
+    signInForm.addEventListener('submit', e => {
     e.preventDefault();
 
     //get user information

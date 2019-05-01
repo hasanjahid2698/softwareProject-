@@ -5,6 +5,7 @@ window.onload = function () {
 function loadPost() {
     var id = localStorage.getItem("classRoomId");
     const queryClass = database.ref('Classes/' + id);
+
     queryClass.once('value').then(function (snapshot) {
         const classTitle = snapshot.child('Title').val();
         const classYear = snapshot.child('Year').val();
@@ -34,7 +35,42 @@ function loadPost() {
         document.getElementById('classroomTitle').innerHTML = classTitle;
         document.getElementById('classroomDes').innerHTML = classSemesterText + ' ' + classYearText;
 
-    })
+        //my code
+
+
+        const queryPost = database.ref('Classes/' + id + '/Posts');
+        $('#postDiv').empty();
+        queryPost.orderByChild('P_id').once("value").then(function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+                var para = document.createElement("div");
+                const classTitle = childSnapshot.child('Title').val();
+                const classTime = childSnapshot.child('Time').val();
+                const classText = childSnapshot.child('Text').val();
+
+                var childKey = snapshot.key;
+
+                const cPost = "<p style=font-size:30px;><b>" + classTitle + "</b></p><p style=font-size:15px;>" + classTime + "</p><p class=hr></p><p style=font-size:20px;>" + classText + "</p>";
+
+                para.innerHTML = cPost;
+                para.className = "postDesign";
+                para.setAttribute("id", childKey);
+                document.getElementById('postDiv').appendChild(para);
+
+            });
+        }).then(() => {
+            var classname = document.getElementsByClassName("cardDiv");
+            console.log(classname.length);
+            for (var i = 0; i < classname.length; i++) {
+                console.log(i);
+                classname[i].addEventListener('click', loadClassroom, false);
+            }
+        });
+
+
+
+    });
+
+
 
 }
 
@@ -42,6 +78,7 @@ function loadPost() {
 const createPostForm = document.querySelector("#createPostForm");
 createPostForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    var S_value = 0 - Date.now();
     var today = new Date();
     var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -55,10 +92,12 @@ createPostForm.addEventListener('submit', (e) => {
     database.ref('Classes/' + classId + '/Posts/' + newPostKey).set({
         Title: postTitle,
         Time: postDate,
-        Text: postText
+        Text: postText,
+        P_id: S_value
     }).then(() => {
         $('#modalCreatePost').modal('hide');
         createPostForm.reset();
+        loadPost();
     }).catch(err => {
         console.log(err.message);
     });
