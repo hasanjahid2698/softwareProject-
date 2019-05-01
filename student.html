@@ -16,42 +16,59 @@
 
 
 
-<body class="bg text-white">
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
-    </div>
+<body class="bg">
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top text-white">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">DepartmentPlus</a>
+            </div>
 
-    <div id="main">
-        <nav class="navbar navbar-default navbar-inverse">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button class="navbar-brand openbtn" onclick="openNav()">☰</button>
-                    <a class="navbar-brand" href="#">DepartmentPlus</a>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right">
+                <ul class="nav navbar-nav">
+                    <li><a class="btn" data-toggle="modal" data-target="#modalProfile">Profile</a></li>
+                    <li><a class="btn" onclick="signOut()" id="logoutButtonTeacher">Logout</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div id="main container" style="margin-top:50px">
+
+        <div class="row">
+            <div class=" row col-md-8 col-sm-8 col-xs-12 col-lg-8" id="studentclassCardDiv">
+
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-12 col-lg-4"></div>
+        </div>
+
+        <div id="modalProfile" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Profile</h4>
+                    </div>
+                    <div class="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#">Create class</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Logout</a></li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+            </div>
+        </div>
     </div>
 
 
 
 
-    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase-firestore.js"></script>
+
+
+
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
     <script>
         // Initialize Firebase
         var config = {
@@ -63,16 +80,22 @@
             messagingSenderId: "396719778425"
         };
         firebase.initializeApp(config);
-        //make auth and database references
         const auth = firebase.auth();
-        const db = firebase.firestore();
-
+        const firestore = firebase.firestore();
+        const database = firebase.database();
     </script>
+
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" rel="stylesheet" />
+
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script src="account.js"></script>
     <script src="student.js"></script>
+
 
 </body>
 

@@ -92,7 +92,9 @@ if (signUpFormStudent) {
                     Email: email,
                     Year: selYear.options[selYear.selectedIndex].value,
                     Semester: selSemester.options[selSemester.selectedIndex].value,
+
                 }).then(() => {
+                    console.log(selYear.options[selYear.selectedIndex].value)
                     location.href = 'index.html'
                 })
             })

@@ -64,3 +64,23 @@ createPostForm.addEventListener('submit', (e) => {
     });
 
 })
+
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        const user = auth.currentUser.uid;
+        database.ref('Users/' + user).once('value').then(function (snapShot) {
+            const userInfo = snapShot.val().UserType;
+            var x = document.getElementById("createPostButton");
+            if (userInfo == 'Teacher') {
+                console.log('called');
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        })
+    } else {
+        // No user is signed in.
+    }
+});
+
+

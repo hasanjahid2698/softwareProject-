@@ -68,8 +68,8 @@ function loadClass() {
 const createClassForm = document.querySelector("#createClassForm");
 createClassForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const selYear = document.getElementById("yearList");
-    const selSemester = document.getElementById("semesterList");
+    const selYear = document.getElementById("yearListTeacher");
+    const selSemester = document.getElementById("semesterListTeacher");
     const user = auth.currentUser.uid;
     const classTitle = createClassForm['inputClassTitle'].value;
     const date = createClassForm['datepicker'].value;
